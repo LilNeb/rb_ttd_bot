@@ -1,5 +1,8 @@
-# The coordinates corresponds to the relative position of the element in the image, in order to crop and better ocr it.
+import keyboard
+import time
+import pyautogui
 
+# The coordinates corresponds to the relative position of the element in the image, in order to crop and better ocr it.
 coordinate_sets = {
     'lobby_menus': {
         'x_rel': 34/1000,    # relative x start point (0 means start of image)
@@ -16,8 +19,34 @@ coordinate_sets = {
 }
 
 # This dictionary maps the status you want to check with the actual word to look for in the OCR results
-
 status_mapping = {
         "lobby": "units",
         "start_button": "start"
     }
+
+# useful coordinates
+ui_coordinates = {
+    'chat': {
+        'x': 122,
+        'y': 273
+    }
+}
+
+# words to paste
+pasta = {
+    'lobby_command': "/lobby"
+}
+
+
+# Useful functions
+
+def write(text):
+    for char in text:
+        keyboard.write(char)
+        time.sleep(0.1)
+        
+def click_on_coordinates(ui_coordinates):
+    pyautogui.moveTo(ui_coordinates['x'], ui_coordinates['y'], duration=0.2)
+    pyautogui.click()
+    time.sleep(0.2)
+    return
