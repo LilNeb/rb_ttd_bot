@@ -2,8 +2,9 @@ import cv2
 import numpy as np
 import pytesseract
 import json
+import re
 
-custom_config = r'--oem 3 --psm 6'
+custom_config = r''
 
 # get grayscale image
 def get_grayscale(image):
@@ -26,6 +27,10 @@ def opening(image):
 def canny(image):
     return cv2.Canny(image, 100, 200)
 
+# remove special characters
+def remove_special_characters(text):
+    return re.sub(r'[^a-zA-Z0-9\s]', '', text)
+
 # OCR file and return all found text as JSON
 def ocr_file(file_path):
     image = cv2.imread(file_path)
@@ -39,7 +44,8 @@ def ocr_file(file_path):
     found_text = {}
     for name, img in images.items():
         text = pytesseract.image_to_string(img, config=custom_config)
-        found_text[name] = text
+        cleaned_text = remove_special_characters(text)
+        found_text[name] = cleaned_text
 
     return json.dumps(found_text)
 
