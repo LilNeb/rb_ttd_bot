@@ -12,6 +12,7 @@ def go_to_lobby():
     utils.click_on_coordinates(ui_coordinates['chat'])
     utils.write(pasta['lobby_command'])
     pyautogui.press('enter')
+    
 
 
-go_to_lobby()
+# go_to_lobby()
