@@ -20,7 +20,7 @@ coordinate_sets = {
 
 # This dictionary maps the status you want to check with the actual word to look for in the OCR results
 status_mapping = {
-        "lobby": "units",
+        "lobby_menus": "units",
         "start_button": "start"
     }
 
