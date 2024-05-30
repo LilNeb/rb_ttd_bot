@@ -43,3 +43,4 @@ def ocr_file(file_path):
 
     return json.dumps(found_text)
 
+# print(ocr_file('/Users/nicolasm./Documents/GitHub/rb_ttd_bot/screenshots/Roblox_1717072046_cropped.png'))
