@@ -34,7 +34,7 @@ ui_coordinates = {
 
 # words to paste
 pasta = {
-    'lobby_command': "/lobby"
+    'lobby_command': "//lobby"
 }
 
 

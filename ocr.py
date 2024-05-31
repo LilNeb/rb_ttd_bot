@@ -4,7 +4,7 @@ import pytesseract
 import json
 import re
 
-custom_config = r''
+custom_config = r'--oem 3 --psm 6'
 
 # get grayscale image
 def get_grayscale(image):
