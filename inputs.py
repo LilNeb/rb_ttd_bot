@@ -28,7 +28,7 @@ def go_to_lobby():
     else:
         raise Exception("Failed to find lobby_menus status after 13 seconds.")
     
-def go_to_fortress(autoskip=True):
+def go_to_fortress():
     current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
     current_state = dict(current_state)
     attempts = 0
@@ -67,17 +67,38 @@ def go_to_fortress(autoskip=True):
         raise Exception("Failed to find in_game status after 15 seconds.")
     
     time.sleep(6)
+    
+def play_fortress_game(autoskip=True):
     if autoskip:
         enable_autoskip()
-    
-def play_fortress_game(replay=True):
-    go_to_fortress()   
     time.sleep(45) 
-    #equip $400 unit by pressing 1
-    pyautogui.press('1')
-    target_ground()
-    pyautogui.click()
+    place_unit('1')
+    while True:
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        print(current_state)
+        if current_state.get('play_again_menus') == True:
+            break
+        else:
+            #throw error
+            print("Dont know what state the player is in, exiting...")
+        time.sleep(1)
     
+
+def play_again():
+# if state = play_again_menus --> click on play_again_button
+# else --> return "disconnected"
+    current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+    current_state = dict(current_state)
+    print(current_state)
+    
+    if current_state.get('play_again_menus') == True:
+        utils.click_on_coordinates(ui_coordinates['play_again_button'])
+        time.sleep(15)
+        play_fortress_game()
+        return True
+    else:
+        return False
     
     
     
@@ -87,9 +108,7 @@ def enable_autoskip():
 def target_ground():
     utils.click_on_coordinates(ui_coordinates['start_button'])
     
-    
-    
-# go_to_fortress()
-# target_ground()
-# enable_autoskip()
-play_fortress_game()
+def place_unit(slot):
+    pyautogui.press(slot)
+    target_ground()
+    pyautogui.click()

@@ -21,15 +21,40 @@ coordinate_sets = {
         'y_rel': 128/1000,    # relative y start point (2/3 means 2/3rd of image height)
         'w_rel': 10/100,    # relative width (1/2 means half of image width)
         'h_rel': 3/100     # relative height (1/6 means 1/6th of image height)
-    }
+    },
+    'disconnected': {
+        'x_rel': 250/1000,    # relative x start point (1/4 means 1/4th of image width)
+        'y_rel': 400/1000,    # relative y start point (2/3 means 2/3rd of image height)
+        'w_rel': 50/100,    # relative width (1/2 means half of image width)
+        'h_rel': 30/100     # relative height (1/6 means 1/6th of image height)
+    },
+    'play_again_menus': {
+        'x_rel': 250/1000,    # relative x start point (1/4 means 1/4th of image width)
+        'y_rel': 280/1000,    # relative y start point (2/3 means 2/3rd of image height)
+        'w_rel': 50/100,    # relative width (1/2 means half of image width)
+        'h_rel': 50/100     # relative height (1/6 means 1/6th of image height)
+    },
+    
 }
 
 # This dictionary maps the status you want to check with the actual word to look for in the OCR results
 status_mapping = {
         "lobby_menus": "units",
+        
         "start_button": "start",
+        
         "in_game": "auto",
-        "in_game": "skip"
+        "in_game": "skip",
+        
+        "disconnected": "reconnect",
+        "disconnected": "idle",
+        "disconnected": "minutes",
+        
+        "play_again_menus":"waves",
+        "play_again_menus":"lost",
+        "play_again_menus":"play",
+        "play_again_menus":"again",
+        "play_again_menus":"total",
     }
 
 # useful coordinates
@@ -50,6 +75,15 @@ ui_coordinates = {
         'x': 400,
         'y': 510
     },
+    'reconnect_button': {
+        'x': 490,
+        'y': 450
+    },
+    #550,500 play_again
+    'play_again_button': {
+        'x': 550,
+        'y': 500
+    }
 }
 
 # words to paste

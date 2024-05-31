@@ -42,4 +42,4 @@ def crop_image_for_all_coordinates_sets(image_path):
     return cropped_images
 
 # Test
-# print(crop_image_for_all_coordinates_sets('/Users/nicolasm./Documents/GitHub/rb_ttd_bot/screenshots/Roblox_1717149240.png'))
+# print(crop_image_for_all_coordinates_sets('/Users/nicolasm./Documents/GitHub/rb_ttd_bot/screenshots/Roblox_1717156815.png'))

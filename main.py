@@ -10,19 +10,34 @@ screenshot_path = './screenshots'
 if len(sys.argv) > 1:
     # Extract the parameters from command-line arguments
     param = sys.argv[1]
-
-# Infinite loop to keep checking the game state
-# while True:
-#     current_state = state.get_current_state_of_the_game(window_name, screenshot_path)
-#     print(current_state)
-#     time.sleep(2)
+    print("HERE IS PARAM",param)
     
 # Uses the param to know what kind of action to take in the game
 def action(param):
     if param == 'autoplay':
-        inputs.go_to_lobby()
-        inputs.go_to_fortress()
-        pass
-    else:
-        # Invalid action
-        pass
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        print(current_state)
+        
+        if current_state.get('play_again_menus') == False:
+            print("Starting autoplay...")
+            inputs.go_to_lobby()
+            print("Arrived at lobby")
+            inputs.go_to_fortress()
+            print("Arrived at fortress")
+            inputs.play_fortress_game(autoskip=True)
+            print("Playing fortress game")
+            action('autoplay')
+        
+        elif current_state.get('play_again_menus') == True:
+            print("Play again menus status is true")
+            inputs.play_again()
+            print("Playing again")
+            action('autoplay')
+        else:
+            print("Something went wrong")
+            sys.exit(1)
+        
+        
+
+action(param)
