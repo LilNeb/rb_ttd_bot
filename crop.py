@@ -4,20 +4,7 @@ import utils
 
 # coordinate_sets = utils.coordinate_sets
 
-coordinate_sets = {
-    'lobby_menus': {
-        'x_rel': 65/1000,    # relative x start point (0 means start of image)
-        'y_rel': 390/1000,  # relative y start point (1/3 means 1/3rd of image height)
-        'w_rel': 50/1000,  # relative width (1/7 means 1/7th of image width)
-        'h_rel': 30/1000   # relative height (1/3 means 1/3rd of image height)
-    },
-    'start_button': {
-        'x_rel': 44/100,    # relative x start point (1/4 means 1/4th of image width)
-        'y_rel': 665/1000,    # relative y start point (2/3 means 2/3rd of image height)
-        'w_rel': 1/9,    # relative width (1/2 means half of image width)
-        'h_rel': 1/10     # relative height (1/6 means 1/6th of image height)
-    }
-}
+coordinate_sets = utils.coordinate_sets
 
 # Coordinates sets
 
@@ -55,4 +42,4 @@ def crop_image_for_all_coordinates_sets(image_path):
     return cropped_images
 
 # Test
-# print(crop_image_for_all_coordinates_sets('screenshots/Roblox_1717142595.png'))
+# print(crop_image_for_all_coordinates_sets('/Users/nicolasm./Documents/GitHub/rb_ttd_bot/screenshots/Roblox_1717149240.png'))

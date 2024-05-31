@@ -24,7 +24,7 @@ def get_current_state_of_the_game(window_name, screenshot_path):
     
     # Interpret the OCR results
     status = interpret_ocr.get_status_from_ocr_results(ocr_results)
-    # print("Here is the status of the game : ",status)
+    print("Here is the status of the game : ",status)
     
     return status
 
