@@ -17,7 +17,7 @@ def action(param):
     if param == 'autoplay':
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
-        print(current_state)
+        # print(current_state)
         
         if current_state.get('play_again_menus') == False:
             print("Starting autoplay...")

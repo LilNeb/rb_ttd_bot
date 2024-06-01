@@ -14,7 +14,7 @@ def findWindowId(windowName):
         kCGWindowListOptionAll, kCGNullWindowID)
 
     for window in windowList:
-        print(window.get('kCGWindowName', ''))
+        # print(window.get('kCGWindowName', ''))
         if(windowName.lower() in window.get('kCGWindowName', '').lower()):
             windowId = window['kCGWindowNumber']
             print('found window id %s' % windowId)
@@ -42,12 +42,12 @@ def takeScreenshotAndSave(windowName, repoPath):
     savePath = os.path.join(repoPath, f'{windowName}_{timestamp}.png')
     cv.imwrite(savePath, img)
 
-    print(f"Image saved at: {savePath}")  # Print the path of the saved image
+    # print(f"Image saved at: {savePath}")  # Print the path of the saved image
 
     return savePath
 
 
-loopTime = time()
+# loopTime = time()
 
 # while(True):
 #     screenshot = takeScreenshotAndSave('Roblox')
@@ -64,6 +64,6 @@ loopTime = time()
 #         cv.destroyAllWindows()
 #         break
 
-takeScreenshotAndSave('Roblox', './screenshots')
+# takeScreenshotAndSave('Roblox', './screenshots')
 
-print('Done.')
+# print('Done.')

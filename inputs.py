@@ -71,35 +71,40 @@ def go_to_fortress():
 def play_fortress_game(autoskip=True):
     if autoskip:
         enable_autoskip()
-    time.sleep(45) # wait to have enough money
+    time.sleep(55) # wait to have enough money (400)
     place_unit("1")
-    time.sleep(120) # wait to have enough money
+    target_static_unit()
+    time.sleep(120) # wait to have enough money (700)
     sell_unit()
     place_unit("2")
     is_spider_targeted = try_targeting_spider()
     if is_spider_targeted:
-        time.sleep(120)
+        time.sleep(120) # wait to have enough money (1800)
         upgrade_unit(target_unit=False)
+        time.sleep(130) # wait to have enough money (4000)
+        upgrade_unit(target_unit=False)
+        time.sleep(90) # wait to have enough money (8000)
+        upgrade_unit(target_unit=False)
+    
 
     while True:
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
-        print(current_state)
+        # print(current_state)
         # 
         if current_state.get('play_again_menus') == True:
             break
         else:
             #throw error
             print("Dont know what state the player is in, exiting...")
-        time.sleep(1)
-    
+        time.sleep(1)   
 
 def play_again():
 # if state = play_again_menus --> click on play_again_button
 # else --> return "disconnected"
     current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
     current_state = dict(current_state)
-    print(current_state)
+    # print(current_state)
     
     if current_state.get('play_again_menus') == True:
         utils.click_on_coordinates(ui_coordinates['play_again_button'])
@@ -109,16 +114,6 @@ def play_again():
     else:
         return False
         
-def enable_autoskip():
-    utils.click_on_coordinates(ui_coordinates['autoskip_button'])
-    
-def target_ground():
-    utils.click_on_coordinates(ui_coordinates['start_button'])
-    
-def place_unit(slot):
-    pyautogui.press(slot)
-    target_ground()
-    pyautogui.click()
 
 def upgrade_unit(target_unit=True):
     if target_unit:
@@ -129,7 +124,7 @@ def upgrade_unit(target_unit=True):
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
         time.sleep(5)
-        print(current_state)
+        # print(current_state)
         if current_state.get('upgrade_menus') == True:
             break
     else:
@@ -140,17 +135,29 @@ def try_targeting_spider(tries=15):
     for _ in range(tries):
         print("Trying to target spider...")
         pyautogui.moveTo(461, 371)
-        pyautogui.click()
+        pyautogui.click(duration=0.0)
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
         time.sleep(5)
-        print(current_state)
+        # print(current_state)
         if current_state.get('upgrade_menus') == True:
             print("Successfully targeted spider.")
             return True
         else:
             print("Failed to target spider.")
             return False
+
+def target_static_unit():
+    utils.click_on_coordinates(ui_coordinates['target_spider'])
+    #get state 5 times
+    for _ in range(5):
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        if current_state.get('upgrade_menus') == True:
+            break
+        time.sleep(1)
+    else:
+        print("Failed to find upgrade_menus status after 5 seconds.")
 
 def sell_unit():
     target_ground()
@@ -160,12 +167,23 @@ def sell_unit():
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
         time.sleep(5)
-        print(current_state)
+        # print(current_state)
         if current_state.get('upgrade_menus') == True:
             break
     else:
         print("Failed to find upgrade_menus status after 10 seconds.")
     utils.click_on_coordinates(ui_coordinates['sell_button'])
+
+def enable_autoskip():
+    utils.click_on_coordinates(ui_coordinates['autoskip_button'])
+    
+def target_ground():
+    utils.click_on_coordinates(ui_coordinates['start_button'])
+    
+def place_unit(slot):
+    pyautogui.press(slot)
+    target_ground()
+    pyautogui.click()
 
 # place_unit("2")
 # try_targeting_spider()
