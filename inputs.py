@@ -71,12 +71,21 @@ def go_to_fortress():
 def play_fortress_game(autoskip=True):
     if autoskip:
         enable_autoskip()
-    time.sleep(45) 
-    place_unit('1')
+    time.sleep(45) # wait to have enough money
+    place_unit("1")
+    time.sleep(120) # wait to have enough money
+    sell_unit()
+    place_unit("2")
+    is_spider_targeted = try_targeting_spider()
+    if is_spider_targeted:
+        time.sleep(120)
+        upgrade_unit(target_unit=False)
+
     while True:
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
         print(current_state)
+        # 
         if current_state.get('play_again_menus') == True:
             break
         else:
@@ -99,9 +108,7 @@ def play_again():
         return True
     else:
         return False
-    
-    
-    
+        
 def enable_autoskip():
     utils.click_on_coordinates(ui_coordinates['autoskip_button'])
     
@@ -112,3 +119,53 @@ def place_unit(slot):
     pyautogui.press(slot)
     target_ground()
     pyautogui.click()
+
+def upgrade_unit(target_unit=True):
+    if target_unit:
+        target_ground()
+    
+    #check 10 times if upgrade_menus is True, break if True
+    for _ in range(10):
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        time.sleep(5)
+        print(current_state)
+        if current_state.get('upgrade_menus') == True:
+            break
+    else:
+        print("Failed to find upgrade_menus status after 10 seconds.")
+    utils.click_on_coordinates(ui_coordinates['upgrade_button'])
+
+def try_targeting_spider(tries=15):
+    for _ in range(tries):
+        print("Trying to target spider...")
+        pyautogui.moveTo(461, 371)
+        pyautogui.click()
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        time.sleep(5)
+        print(current_state)
+        if current_state.get('upgrade_menus') == True:
+            print("Successfully targeted spider.")
+            return True
+        else:
+            print("Failed to target spider.")
+            return False
+
+def sell_unit():
+    target_ground()
+    
+    #check 10 times if upgrade_menus is True, break if True
+    for _ in range(10):
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        time.sleep(5)
+        print(current_state)
+        if current_state.get('upgrade_menus') == True:
+            break
+    else:
+        print("Failed to find upgrade_menus status after 10 seconds.")
+    utils.click_on_coordinates(ui_coordinates['sell_button'])
+
+# place_unit("2")
+# try_targeting_spider()

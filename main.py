@@ -34,9 +34,10 @@ def action(param):
             inputs.play_again()
             print("Playing again")
             action('autoplay')
-        else:
-            print("Something went wrong")
-            sys.exit(1)
+        elif current_state.get('disconnected') == True:
+            inputs.reconnect()
+            action('autoplay')
+            print("Reconnecting...")
         
         
 

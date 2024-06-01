@@ -34,7 +34,12 @@ coordinate_sets = {
         'w_rel': 50/100,    # relative width (1/2 means half of image width)
         'h_rel': 50/100     # relative height (1/6 means 1/6th of image height)
     },
-    
+    'upgrade_menus': {
+        'x_rel': 1/1000,    # relative x start point (1/4 means 1/4th of image width)
+        'y_rel': 500/1000,    # relative y start point (2/3 means 2/3rd of image height)
+        'w_rel': 25/100,    # relative width (1/2 means half of image width)
+        'h_rel': 20/100     # relative height (1/6 means 1/6th of image height)
+    },
 }
 
 # This dictionary maps the status you want to check with the actual word to look for in the OCR results
@@ -55,6 +60,11 @@ status_mapping = {
         "play_again_menus":"play",
         "play_again_menus":"again",
         "play_again_menus":"total",
+        
+        "upgrade_menus":"upgrade",
+        "upgrade_menus":"first",
+        "upgrade_menus":"sell",
+        "upgrade_menus":"target",
     }
 
 # useful coordinates
@@ -79,11 +89,22 @@ ui_coordinates = {
         'x': 490,
         'y': 450
     },
-    #550,500 play_again
     'play_again_button': {
         'x': 550,
         'y': 500
-    }
+    },
+    'upgrade_button': {
+        'x': 50,
+        'y': 410
+    },
+    'sell_button': {
+        'x': 85,
+        'y': 480
+    },
+    'target_spider': {
+        'x': 401,
+        'y': 371
+    },
 }
 
 # words to paste
