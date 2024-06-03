@@ -18,7 +18,7 @@ def go_to_lobby():
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         # load current_state as a dictionary
         current_state = dict(current_state)
-        print(current_state)
+        # print(current_state)
         
         # Check if any status is True for lobby_menus
         if (current_state.get('lobby_menus') == True):
@@ -70,38 +70,35 @@ def go_to_fortress():
     
 def play_fortress_game(autoskip=True):
     if autoskip:
+        time.sleep(7)
         enable_autoskip()
+        
     time.sleep(55) # wait to have enough money (400)
     place_unit("1")
     target_static_unit()
     time.sleep(120) # wait to have enough money (700)
     sell_unit()
     place_unit("2")
-    is_spider_targeted = try_targeting_spider()
-    if is_spider_targeted:
-        time.sleep(120) # wait to have enough money (1800)
-        upgrade_unit(target_unit=False)
-        time.sleep(130) # wait to have enough money (4000)
-        upgrade_unit(target_unit=False)
-        time.sleep(90) # wait to have enough money (8000)
-        upgrade_unit(target_unit=False)
-    
-
+    spider_targeted = try_targeting_spider(20)
+    if spider_targeted:
+        #while state play_again_menus is False, upgrade unit every 15 seconds
+        current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+        current_state = dict(current_state)
+        while current_state.get('play_again_menus') == False:
+            upgrade_unit(target_unit=False)
+            time.sleep(15)
+            current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+            current_state = dict(current_state)
+        
     while True:
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
-        # print(current_state)
-        # 
         if current_state.get('play_again_menus') == True:
+            print("Finished game")
             break
-        else:
             #throw error
-            print("Dont know what state the player is in, exiting...")
-        time.sleep(1)   
 
 def play_again():
-# if state = play_again_menus --> click on play_again_button
-# else --> return "disconnected"
     current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
     current_state = dict(current_state)
     # print(current_state)
@@ -112,8 +109,7 @@ def play_again():
         play_fortress_game()
         return True
     else:
-        return False
-        
+        return False     
 
 def upgrade_unit(target_unit=True):
     if target_unit:
@@ -132,20 +128,26 @@ def upgrade_unit(target_unit=True):
     utils.click_on_coordinates(ui_coordinates['upgrade_button'])
 
 def try_targeting_spider(tries=15):
-    for _ in range(tries):
+    current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
+    current_state = dict(current_state)
+    if current_state.get('upgrade_menus') == True:
+        print("Already targeted spider.")
+        return True
+    
+    for _ in range(15):
         print("Trying to target spider...")
-        pyautogui.moveTo(461, 371)
-        pyautogui.click(duration=0.0)
+        pyautogui.moveTo(461, 371, duration=0.1)
+        pyautogui.click()
         current_state = state.get_current_state_of_the_game('Roblox', './screenshots')
         current_state = dict(current_state)
-        time.sleep(5)
+        time.sleep(3)
         # print(current_state)
         if current_state.get('upgrade_menus') == True:
             print("Successfully targeted spider.")
             return True
         else:
             print("Failed to target spider.")
-            return False
+    return False
 
 def target_static_unit():
     utils.click_on_coordinates(ui_coordinates['target_spider'])

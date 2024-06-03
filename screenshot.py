@@ -8,7 +8,7 @@ import os
 def findWindowId(windowName):
     windowId = None
 
-    print('searching window id')
+    # print('searching window id')
 
     windowList = CGWindowListCopyWindowInfo(
         kCGWindowListOptionAll, kCGNullWindowID)
@@ -17,7 +17,7 @@ def findWindowId(windowName):
         # print(window.get('kCGWindowName', ''))
         if(windowName.lower() in window.get('kCGWindowName', '').lower()):
             windowId = window['kCGWindowNumber']
-            print('found window id %s' % windowId)
+            # print('found window id %s' % windowId)
             return windowId
 
     print('unable to find window id')
